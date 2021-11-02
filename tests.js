@@ -2,196 +2,247 @@ const chai = window.chai;
 const expect = chai.expect;
 
 describe("Colecciones en JS: Array", () => {
-    it("Pueden crearse usando [ ]", () => {
+  it("Pueden crearse usando [ ]", () => {
+    // crea un array "a" usando los corchetes []
+    let a = [];
+    expect(Array.isArray(a)).to.be.true;
+  });
+  it("Pueden crearse usando new Array", () => {
+    // crea un array "a" usando el constructor "new"
+    let a = new Array();
+    expect(Array.isArray(a)).to.be.true;
+  });
+  it("Pueden estar vacíos o contener elementos", () => {
+    // crea un array que esté vacío y otro que no esté vacío
+    let emptyArray = [];
+    let nonEmptyArray = [1, 2, 3];
+    expect(emptyArray).to.be.empty;
+    expect(nonEmptyArray).not.to.be.empty;
+  });
+  it("Tienen una longitud correspondiente que podemos conocer con la propiedad 'length'", () => {
+    let list = [10, "foo", true, "pepe"];
+    let listLength = list.length;
+    // completa la definición que falta usando la propiedad length
 
-        // crea un array "a" usando los corchetes []
+    expect(listLength).to.equal(4);
+  });
+  it("Nos permiten acceder a cada elemento del array", () => {
+    let fruits = ["Piña", "Manzana", "Fresa", "Melón"];
 
-        expect(Array.isArray(a)).to.be.true;
-    })
-    it("Pueden crearse usando new Array", () => {
+    let pina = fruits[0];
+    let melon = fruits[fruits.length - 1];
 
-        // crea un array "a" usando el constructor "new"
+    // sustituye "???" en cada caso para acceder al elemento correspondiente de la lista
 
-        expect(Array.isArray(a)).to.be.true;
-    })
-    it("Pueden estar vacíos o contener elementos", () => {
+    expect(pina).to.equal("Piña");
+    expect(melon).to.equal("Melón");
+  });
+  it("Nos permiten modificar cada elemento", () => {
+    let fruits = ["Piña", "Manzana", "Fresa", "Melón"];
 
-        // crea un array que esté vacío y otro que no esté vacío
+    // Añade el código que permite modificar el elemento correspondiente
+    fruits[1] = "Pera";
 
-        expect(emptyArray).to.be.empty;
-        expect(nonEmptyArray).not.to.be.empty;
-    })
-    it("Tienen una longitud correspondiente que podemos conocer con la propiedad 'length'", () => {
+    expect(fruits).to.have.same.members(["Piña", "Pera", "Fresa", "Melón"]);
+  });
 
-        let list = [10, "foo", true, "pepe"];
+  it("Podemos añadir elementos", () => {
+    let fruits = ["Piña", "Manzana", "Fresa", "Melón"];
 
-        // completa la definición que falta usando la propiedad length
-
-        expect("???").to.equal(4);
-    })
-    it("Nos permiten acceder a cada elemento del array", () => {
-
-        let fruits = ["Piña", "Manzana", "Fresa", "Melón"]
-
-        // sustituye "???" en cada caso para acceder al elemento correspondiente de la lista
-
-        expect("???").to.equal("Piña");
-        expect("???").to.equal("Melón");
-    })
-    it("Nos permiten modificar cada elemento", () => {
-
-        let fruits = ["Piña", "Manzana", "Fresa", "Melón"]
-
-        // Añade el código que permite modificar el elemento correspondiente
-
-        expect(fruits).to.have.same.members(["Piña", "Pera", "Fresa", "Melón"])
-    })
-
-    it("Podemos añadir elementos", () => {
-        let fruits = ["Piña", "Manzana", "Fresa", "Melón"]
-
-        // Añade el código que permite modificar la lista (incluyendo un elemento al final)
-
-        expect(fruits).to.have.same.members(["Piña", "Manzana", "Fresa", "Melón", "Pera"])
-    })
-})
+    // Añade el código que permite modificar la lista (incluyendo un elemento al final)
+    fruits.push("Pera");
+    expect(fruits).to.have.same.members([
+      "Piña",
+      "Manzana",
+      "Fresa",
+      "Melón",
+      "Pera",
+    ]);
+  });
+});
 
 describe("Ejemplos resueltos: Operaciones iterables", () => {
-    it("map nos permite realizar operaciones elemento a elemento", () => {
+  it("map nos permite realizar operaciones elemento a elemento", () => {
+    let list = [1, 5, 7, 9, 11, 13];
 
-        let list = [1,5,7,9,11,13];
+    function multiplicarPor2(num) {
+      return num * 2;
+    }
 
-        function multiplicarPor2(num) {
-            return num * 2;
-        }
+    // utiliza la función map para aplicar la función multiplicarPor2 a los números de la lista
+    // SOLUCIÓN:
+    list = list.map(multiplicarPor2);
 
-        // utiliza la función map para aplicar la función multiplicarPor2 a los números de la lista
-        // SOLUCIÓN: 
-        list = list.map(multiplicarPor2);
-        
-        expect(list).to.have.same.members([2,10,14,18,22,26]);
-    })
-    it("map nos permite realizar operaciones elemento a elemento (2)", () => {
+    expect(list).to.have.same.members([2, 10, 14, 18, 22, 26]);
+  });
+  it("map nos permite realizar operaciones elemento a elemento (2)", () => {
+    let list = [1, 5, 7, 9, 11, 13];
 
-        let list = [1,5,7,9,11,13];
+    // utiliza la función map para aplicar la función multiplicarPor2 a los números de la lista
+    // SOLUCIÓN:
+    list = list.map((n) => n * 2);
 
-        // utiliza la función map para aplicar la función multiplicarPor2 a los números de la lista
-        // SOLUCIÓN: 
-        list = list.map( n => n*2 );
-        
-        expect(list).to.have.same.members([2,10,14,18,22,26]);
-    })
+    expect(list).to.have.same.members([2, 10, 14, 18, 22, 26]);
+  });
 
-    it("filter recorre la lista y se queda con los elementos que cumplen una condición", () => {
+  it("filter recorre la lista y se queda con los elementos que cumplen una condición", () => {
+    let list = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-        let list = [1,2,3,4,5,6,7,8,9];
+    function esPar(num) {
+      // si el número es par (divisible por 2) devuelve true
+      return num % 2 == 0;
+    }
 
-        function esPar(num) {
-            // si el número es par (divisible por 2) devuelve true
-            return num % 2 == 0;
-        }
+    // utiliza la función filter para quedarte sólo con los números pares
+    // SOLUCIÓN:
+    list = list.filter(esPar);
 
-        // utiliza la función filter para quedarte sólo con los números pares
-        // SOLUCIÓN: 
-        list = list.filter( esPar );
-        
-        expect(list).to.have.same.members([2,4,6,8]);
-    })
+    expect(list).to.have.same.members([2, 4, 6, 8]);
+  });
 
-    it("filter recorre la lista y se queda con los elementos que cumplen una condición (2)", () => {
+  it("filter recorre la lista y se queda con los elementos que cumplen una condición (2)", () => {
+    let list = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-        let list = [1,2,3,4,5,6,7,8,9];
+    // utiliza la función filter para quedarte sólo con los números pares
+    // SOLUCIÓN:
+    list = list.filter((num) => num % 2 == 0);
 
-        // utiliza la función filter para quedarte sólo con los números pares
-        // SOLUCIÓN: 
-        list = list.filter( num => num % 2 == 0 );
-        
-        expect(list).to.have.same.members([2,4,6,8]);
-    })
+    expect(list).to.have.same.members([2, 4, 6, 8]);
+  });
 
-    it("some recorre los elementos de la lista y comprueba si ALGUNO cumple la condición", () => {
+  it("some recorre los elementos de la lista y comprueba si ALGUNO cumple la condición", () => {
+    let list = [1, 2, -27, 13, 40, 95, 82, 9];
 
-        let list = [1, 2 , -27, 13, 40, 95 , 82, 9];
+    function menorQue0(num) {
+      return num < 0;
+    }
 
-        function menorQue0(num) {
-            return num < 0;
-        }
+    // aplica la función some para verificar si alguno de los números de la lista es menor que 0
+    // SOLUCIÓN:
+    let condicion = list.some(menorQue0);
 
-        // aplica la función some para verificar si alguno de los números de la lista es menor que 0
-        // SOLUCIÓN:
-        let condicion = list.some(menorQue0);        
-        
-        expect(condicion).to.equal(true);
-    })
+    expect(condicion).to.equal(true);
+  });
 
-    it("every recorre los elementos de la lista y comprueba si ALGUNO cumple la condición", () => {
+  it("every recorre los elementos de la lista y comprueba si ALGUNO cumple la condición", () => {
+    let list = [1, 2, -27, 13, 40, 95, 82, 9];
 
-        let list = [1, 2 , -27, 13, 40, 95 , 82, 9];
+    function menorQue0(num) {
+      return num < 0;
+    }
 
-        function menorQue0(num) {
-            return num < 0;
-        }
+    // aplica la función some para verificar si alguno de los números de la lista es menor que 0
+    // SOLUCIÓN:
+    let condicion = list.some(menorQue0);
+    // SOLUCIÓN ALTERNATIVA:
+    // let condición = list.some( n => n < 0 );
 
-        // aplica la función some para verificar si alguno de los números de la lista es menor que 0
-        // SOLUCIÓN:
-        let condicion = list.some(menorQue0);    
-        // SOLUCIÓN ALTERNATIVA:
-        // let condición = list.some( n => n < 0 );    
-        
-        expect(condicion).to.equal(true);
-    })
-})
+    expect(condicion).to.equal(true);
+  });
+});
 
 describe("Operaciones iterables", () => {
-    it("map nos permite realizar operaciones elemento a elemento", () => {
+  it("map nos permite realizar operaciones elemento a elemento", () => {
+    let list = [1, 5, 7, 9, 11, 13];
 
-        let list = [1,5,7,9,11,13];
+    // utiliza la función map para aplicar los números de la lista
+    list = list.map((n) => n - 1);
 
-        // utiliza la función map para aplicar los números de la lista
-        list = "???";
-        
+    expect(list).to.have.same.members([0, 4, 6, 8, 10, 12]);
+  });
 
-        expect(list).to.have.same.members([0,4,6,8,10,12]);
-    })
+  it("map nos permite realizar operaciones elemento a elemento (2)", () => {
+    let list = ["Pikachu", "Charmander", "Magikarp"];
 
-    it("map nos permite realizar operaciones elemento a elemento (2)", () => {
+    // utiliza la función map para aplicar los números de la lista y guardar la nueva lista en result
+    let result = list.map((n) => n + ", te elijo a ti!");
 
-        let list = ["Pikachu", "Charmander", "Magikarp"];
+    expect(result).to.have.same.members([
+      "Pikachu, te elijo a ti!",
+      "Charmander, te elijo a ti!",
+      "Magikarp, te elijo a ti!",
+    ]);
+  });
 
-        // utiliza la función map para aplicar los números de la lista y guardar la nueva lista en result
-                
-        expect(result).to.have.same.members([
-            "Pikachu, te elijo a ti!",
-            "Charmander, te elijo a ti!",
-            "Magikarp, te elijo a ti!"
-        ]);
-    })
+  it("Buscando el planeta con Array.includes", () => {
+    let knownExoplanets = [
+      "TOI-1298 b",
+      "TOI-132 b",
+      "TOI-1333 b",
+      "TOI-1338 b",
+      "TOI-1431 b",
+      "TOI-1444 b",
+      "TOI-1478 b",
+      "TOI-150.01",
+      "TOI-157 b",
+      "TOI-1601 b",
+      "TOI-163 b",
+      "TOI-1634 b",
+      "TOI-1685 b",
+      "TOI-169 b",
+      "TOI-172 b",
+      "TOI-1728 b",
+      "TOI-1749 b",
+      "TOI-1749 c",
+    ];
 
-    it("Buscando el planeta con Array.includes", () => {
+    // utiliza la función includes para comprobar si la lista de planetas contiene el planeta TOI-1634 b
+    let result = knownExoplanets.includes("TOI-1634 b");
 
-        let knownExoplanets = [ "TOI-1298 b","TOI-132 b","TOI-1333 b","TOI-1338 b","TOI-1431 b","TOI-1444 b","TOI-1478 b","TOI-150.01","TOI-157 b","TOI-1601 b","TOI-163 b","TOI-1634 b","TOI-1685 b","TOI-169 b","TOI-172 b","TOI-1728 b","TOI-1749 b","TOI-1749 c"];
+    expect(result).to.equal(true);
+  });
 
-        // utiliza la función includes para comprobar si la lista de planetas contiene el planeta TOI-1634 b
-        let result = "???";
-        
-        expect(result).to.equal(true);        
-    })
+  it("filtrando planetas", () => {
+    let knownExoplanets = [
+      "TOI-1298 b",
+      "TOI-132 b",
+      "TOI-1333 b",
+      "TOI-1338 b",
+      "TOI-1431 b",
+      "TOI-1444 b",
+      "TOI-1478 b",
+      "TOI-150.01",
+      "TOI-157 b",
+      "TOI-1601 b",
+      "TOI-163 b",
+      "TOI-1634 b",
+      "TOI-1685 b",
+      "TOI-169 b",
+      "TOI-172 b",
+      "TOI-1728 b",
+      "TOI-1749 b",
+      "TOI-1749 c",
+    ];
 
-    it("filtrando planetas", () => {
+    // utiliza la función filter para quedarnos con los planetas que terminan por la letra c
+    // puedes utilizar la función .endsWith para comprobar si un string termina por una letra
+    // p.ej. "Hola".endsWith('a') devuelve true
+    let result = knownExoplanets.filter((n) => n.endsWith("c"));
 
-        let knownExoplanets = [ "TOI-1298 b","TOI-132 b","TOI-1333 b","TOI-1338 b","TOI-1431 b","TOI-1444 b","TOI-1478 b","TOI-150.01","TOI-157 b","TOI-1601 b","TOI-163 b","TOI-1634 b","TOI-1685 b","TOI-169 b","TOI-172 b","TOI-1728 b","TOI-1749 b","TOI-1749 c"];
+    // todos los planetas de result terminan con la letra c
+    expect(result.every((p) => p.endsWith("c"))).to.equal(true);
+  });
 
-        // utiliza la función filter para quedarnos con los planetas que terminan por la letra c
-        // puedes utilizar la función .endsWith para comprobar si un string termina por una letra
-        // p.ej. "Hola".endsWith('a') devuelve true
-        let result = "???";
-        
+  // Bonus: Escribe un test como los anteriores con algún ejemplo que utilice
+  // una lista alguna de las funciones que hemos visto, como map o filter.
 
-        // todos los planetas de result terminan con la letra c
-        expect(result.every( p => p.endsWith('c'))).to.equal(true);        
-    })
+  it("filtrando names por length", () => {
+    let arrayOfNames = [
+      "Ana",
+      "Belén",
+      "Claudia",
+      "Dionisio",
+      "Eleanor",
+      "Félix",
+      "Gus",
+    ];
 
-    // Bonus: Escribe un test como los anteriores con algún ejemplo que utilice 
-    // una lista alguna de las funciones que hemos visto, como map o filter.
-    
-})
+    // Utilizando filter para filtrar nombres de 5 caracteres o más.
+    // Utilizando length para devolver la longitud del array compuesto por nombres con 5 caracteres o más.
+    // Guardando valores en variable "result".
+    let result = arrayOfNames.filter((n) => n.length <= 5).length;
+    console.log(result);
+
+    expect(result).to.equal(4);
+  });
+});
